@@ -11,18 +11,18 @@ with types;
 let
 
   # todo : there must be a better way to render secrets.nix
-  secretsConfigurations = lib.flatten (
-    lib.mapAttrsToList (
-      artifactName: artifact:
-      lib.mapAttrsToList (fileName: file: ''
-        "${config.artifacts.config.agenix.storeDir}/per-machine/${config.artifacts.config.agenix.machineName}/${artifactName}/${fileName}.age".publicKeys = [
+  secretsConfigurations = flatten (
+    map (
+      artifact:
+      map (file: ''
+        "${config.artifacts.config.agenix.storeDir}/per-machine/${config.artifacts.config.agenix.machineName}/${artifact.name}/${file.name}.age".publicKeys = [
           "${config.artifacts.config.agenix.publicHostKey}"
           ${lib.concatStringsSep "\n" (
             map (key: "\"${key}\"") config.artifacts.config.agenix.publicUserKeys
           )}
         ];
-      '') artifact.files
-    ) config.artifacts.store
+      '') (lib.attrValues artifact.files)
+    ) (lib.attrValues config.artifacts.store)
   );
 
   secretsNix = pkgs.writeText "secrets.nix" ''

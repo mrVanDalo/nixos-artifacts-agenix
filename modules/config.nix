@@ -9,6 +9,11 @@ with types;
       description = "Path to the secrets store for agenix backend";
       default = "secrets";
     };
+    # fixme should not be here multiple times
+    storeDirAgain = mkOption {
+      type = path;
+      description = "Path to the secrets store for agenix backend";
+    };
     machineName = mkOption {
       type = str;
       description = "name of this machine";
