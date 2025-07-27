@@ -2,45 +2,51 @@
   description = "Description for the project";
 
   inputs = {
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:ryantm/agenix";
     devshell.url = "github:numtide/devshell";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    nixos-artifacts.inputs.nixpkgs.follows = "nixpkgs"; # only private input
+    nixos-artifacts.url = "git+ssh://forgejo@git.ingolf-wagner.de:2222/palo/nixos-artifacts.git?ref=main";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
+    inputs@{ flake-parts, self, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./nix/formatter.nix
         ./nix/devshells.nix
+        inputs.nixos-artifacts.flakeModules.default
       ];
       systems = [
         "x86_64-linux"
         "aarch64-linux"
       ];
-      perSystem =
-        {
-          config,
-          self',
-          inputs',
-          pkgs,
-          system,
-          ...
-        }:
-        {
-          # Per-system attributes can be defined here. The self' and inputs'
-          # module parameters provide easy access to attributes of the same
-          # system.
-
-          # Equivalent to  inputs'.nixpkgs.legacyPackages.hello;
-          packages.default = pkgs.hello;
-        };
       flake = {
-        # The usual flake attributes can be defined here, including system-
-        # agnostic ones like nixosModule and system-enumerating ones, although
-        # those are more easily expressed in perSystem.
+
+        nixosModules.default = {
+          imports = [ ./modules ];
+        };
+
+        nixosConfigurations.example = inputs.nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            self.nixosModules.default
+            inputs.nixos-artifacts.nixosModules.default
+            inputs.nixos-artifacts.nixosModules.examples
+            (
+              { pkgs, config, ... }:
+              {
+                artifacts.default.backend = config.artifacts.backend.agenix;
+              }
+            )
+          ];
+        };
+
       };
     };
 }
