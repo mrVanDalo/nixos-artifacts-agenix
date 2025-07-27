@@ -41,7 +41,12 @@
             (
               { pkgs, config, ... }:
               {
+                networking.hostName = "example";
                 artifacts.default.backend = config.artifacts.backend.agenix;
+                artifacts.config.agenix.publicHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEUXkewyZ94A7CeCyVvN0KCqPn+8x1BZaGWMAojlfCXO";
+                artifacts.config.agenix.publicUserKeys = [
+                  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILE1jxUxvujFaj8kSjwJuNVRUinNuHsGeXUGVG6/lA1O"
+                ];
               }
             )
           ];

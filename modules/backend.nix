@@ -2,10 +2,35 @@
   pkgs,
   lib,
   inputs,
+  config,
   ...
 }:
 with lib;
 with types;
+
+let
+
+  # todo : there must be a better way to render secrets.nix
+  secretsConfigurations = lib.flatten (
+    lib.mapAttrsToList (
+      artifactName: artifact:
+      lib.mapAttrsToList (fileName: file: ''
+        "${config.artifacts.config.agenix.storeDir}/per-machine/${config.artifacts.config.agenix.machineName}/${artifactName}/${fileName}.age".publicKeys = [
+          "${config.artifacts.config.agenix.publicHostKey}"
+          ${lib.concatStringsSep "\n" (
+            map (key: "\"${key}\"") config.artifacts.config.agenix.publicUserKeys
+          )}
+        ];
+      '') artifact.files
+    ) config.artifacts.store
+  );
+
+  secretsNix = pkgs.writeText "secrets.nix" ''
+    {
+      ${lib.concatStringsSep "\n" secretsConfigurations}
+    }
+  '';
+in
 {
 
   # folder structure
@@ -27,6 +52,7 @@ with types;
   # $out -> program
 
   artifacts.backend.agenix = {
+
     # will be called on each artifact
     serialize = pkgs.writers.writeBash "serialize-with-artifacts" ''
       export PATH=${
@@ -34,6 +60,10 @@ with types;
           inputs.agenix.packages.${pkgs.system}.default
         ]
       }:$PATH
+      cat <<EOF
+      EOF
+      export RULES=${secretsNix}
+      echo secrets.nix=${secretsNix}
       for file in $(find "$out" -type f); do
           # Remove the $out prefix to get the relative path
           relative_path=''${file#$out/}
@@ -53,6 +83,7 @@ with types;
           #touch $out/$relative_path
       done
     '';
+
   };
 
 }
