@@ -1,15 +1,14 @@
 {
-  description = "Description for the project";
+  description = "agenix implementation of nixos-artifacts";
 
   inputs = {
+
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
 
-    nixos-artifacts.url = "path:///home/palo/dev/nixos/nixos-artifacts";
+    nixos-artifacts.url = "git+ssh://git@github.com/mrVanDalo/nixos-artifacts.git?ref=main";
     nixos-artifacts.inputs.nixpkgs.follows = "nixpkgs"; # only private input
-    #nixos-artifacts.url = "git+ssh://forgejo@git.ingolf-wagner.de:2222/palo/nixos-artifacts.git?ref=main";
 
-    #private-parts.url =
     devshell.url = "github:numtide/devshell";
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -36,14 +35,20 @@
           system,
           ...
         }:
-        {
-          packages.default = inputs.nixos-artifacts.packages.${system}.default.override {
-            # todo : call it backends
-            backend.agenix = import ./agenix.nix {
-              inherit pkgs inputs;
-              inherit (pkgs) lib;
-            };
+        let
+          backends = import ./backend_agenix.nix {
+            inherit pkgs inputs;
           };
+        in
+        {
+
+          # provide all packages
+          packages = { inherit (backends) check_serialization serialize deserialize; };
+
+          packages.default = inputs.nixos-artifacts.packages.${system}.default.override {
+            backends.agenix = { inherit (backends) check_serialization serialize deserialize; };
+          };
+
         };
       flake = {
 
@@ -53,7 +58,6 @@
           modules = [
             inputs.nixos-artifacts.nixosModules.default
             inputs.nixos-artifacts.nixosModules.examples
-            #inputs.agenix.nixosModules.default
             (
               { pkgs, config, ... }:
               {
