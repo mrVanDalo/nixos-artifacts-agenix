@@ -1,0 +1,3 @@
+{
+  imports = [ ./store.nix ];
+}

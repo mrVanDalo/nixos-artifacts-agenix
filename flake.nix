@@ -50,11 +50,13 @@
           };
 
         };
+
       flake = {
+
+        nixosModules.default = ./modules;
 
         nixosConfigurations.machine-one-agenix = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
           modules = [
             inputs.nixos-artifacts.nixosModules.default
             inputs.nixos-artifacts.nixosModules.examples
@@ -63,6 +65,7 @@
               {
                 networking.hostName = "machine-one-agenix";
                 artifacts.default.backend.serialization = "agenix";
+                artifacts.config.agenix.store = "$HOME/artifacts";
                 artifacts.config.agenix.publicHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEUXkewyZ94A7CeCyVvN0KCqPn+8x1BZaGWMAojlfCXO";
                 artifacts.config.agenix.publicUserKeys = [
                   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILE1jxUxvujFaj8kSjwJuNVRUinNuHsGeXUGVG6/lA1O"
