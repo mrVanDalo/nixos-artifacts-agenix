@@ -1,3 +1,6 @@
 {
-  imports = [ ./store.nix ];
+  imports = [
+    ./store.nix
+    ./config.nix
+  ];
 }

@@ -28,7 +28,7 @@ with lib;
   check_serialization = pkgs.writers.writeBash "agenix-check.sh" ''
     # set -x
 
-    store=$(gojq -r '.store // "secrets"' "$config")
+    store=$(gojq -r '.storeDir // "secrets"' "$config")
     store="$(eval echo "$store")"
 
 
@@ -62,7 +62,7 @@ with lib;
     export BACKUP=$(mktemp -d)
     export RULES=$(mktemp)
 
-    store="$(gojq -r '.store // "secrets"' "$config")"
+    store="$(gojq -r '.storeDir // "secrets"' "$config")"
     store="$(eval echo "$store")"
 
     trap 'rm -rf "$RULES" "$BACKUP"' EXIT
@@ -75,6 +75,7 @@ with lib;
 
       {
         echo "{"
+        echo "  \"$store/per-machine/$machine/$artifact/$relative_path.age\".armor = true;"
         echo "  \"$store/per-machine/$machine/$artifact/$relative_path.age\".publicKeys = ["
         gojq -r '[.publicHostKey] + .publicUserKeys | .[] | "    \"" + . + "\""' $config
         echo "  ];"
