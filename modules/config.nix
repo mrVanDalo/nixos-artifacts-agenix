@@ -26,7 +26,10 @@ with types;
     };
     publicHostKey = mkOption {
       type = str;
-      description = "public key used to encrypt secrets for this host";
+      description = ''
+        public key used to encrypt secrets for this host
+        can be found via `ssh-keyscan <host>`
+      '';
     };
     publicUserKeys = mkOption {
       type = listOf str;
