@@ -20,7 +20,7 @@
               lib.nameValuePair "${artifact.name}-${file.name}" {
                 # fixme : config.networking.hostName might not be correct
                 file = "${config.artifacts.config.agenix.flakeStoreDir}/per-machine/${config.artifacts.config.agenix.machineName}/${artifact.name}/${file.name}.age";
-                inherit (file) owner group path;
+                inherit (file) owner group path mode;
               }
             ) (lib.attrValues artifact.files)
           ) (lib.attrValues config.artifacts.store)
