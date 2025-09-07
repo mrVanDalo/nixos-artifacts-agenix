@@ -53,7 +53,17 @@
 
       flake = {
 
-        nixosModules.default = ./modules;
+        nixosModules.default = {
+          imports = [
+            inputs.agenix.nixosModules.default
+            ./modules
+          ];
+        };
+        nixosModules.without-agenix = {
+          imports = [
+            ./modules
+          ];
+        };
 
         nixosConfigurations.machine-one-agenix = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
