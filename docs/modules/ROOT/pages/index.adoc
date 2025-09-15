@@ -1,0 +1,5 @@
+= NixOS Artifacts Agenix
+:page-role: index
+
+This is the documentation of the
+https://github.com/mrVanDalo/nixos-artifacts-agenix[nixos-artifacts-agenix] repository.

@@ -1,0 +1,5 @@
+name: nixos-artifacts-agenix
+title: NixOS Artifacts Agenix
+version: latest
+nav:
+  - modules/ROOT/nav.adoc
