@@ -3,3 +3,19 @@
 
 This is the documentation of the
 https://github.com/mrVanDalo/nixos-artifacts-agenix[nixos-artifacts-agenix] repository.
+
+NixOS Artifacts Agenix integrates the nixos-artifacts framework with the Agenix secret management tool. It provides:
+
+- A NixOS module to read encrypted artifacts as age secrets at runtime.
+- A backend implementation for artifacts-cli to serialize/deserialize artifacts using age encryption.
+
+== Pages overview
+
+- xref:how-to-use-agenix-backend.adoc[How to use nixos-artifacts-agenix]:
+  Shows how to use nixos-artifacts-agenix in your flake and your NixOS configurations.
+
+- xref:how-to-configure-artifacts-cli.adoc[artifacts-cli configuration]:
+  How to get an artifacts CLI that supports the Agenix backend.
+
+- xref:directory_layout.adoc[Directory Layout]:
+  Documents the directory structure used by the Agenix backend for storing encrypted artifacts using agenix.

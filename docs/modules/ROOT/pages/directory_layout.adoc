@@ -1,0 +1,4 @@
+= Directory Layout
+
+Directory layout used by `nixos-artifacts-agenix` is as follows
+`<storeDir/flakeStoreDir>/per-machine/<machineName>/<artifactName>/<fileName>.age`

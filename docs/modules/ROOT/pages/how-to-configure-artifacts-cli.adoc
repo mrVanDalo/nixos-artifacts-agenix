@@ -1,0 +1,105 @@
+= Configure artifacts-cli to use the Agenix backend
+
+This guide explains how to wire the agenix backend implementation into the
+artifacts-cli package from nixos-artifacts by overriding
+`inputs.nixos-artifacts` `default` package.
+
+TIP: If you want to configure the NixOS module side (secrets, keys, layout), see
+xref:how-to-use-agenix-backend.adoc[How to use the Agenix backend].
+
+== 1) Quick start: use this flake’s default package
+
+You can install the CLI that already includes the agenix backend by using
+this repository’s default package:
+
+[source,shell]
+----
+nix shell github:mrVanDalo/nixos-artifacts-agenix#default
+----
+
+Now you have `artifacts` in your `$PATH`.
+
+== 2) Override the nixos-artifacts CLI in your own flake
+
+If you already have a flake and want to control exactly how the CLI is produced,
+you can override the default artifacts-cli package from nixos-artifacts and
+inject the agenix backend implementation provided by this repository.
+
+=== Minimal flake-parts example
+
+[source,nix]
+----
+{
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.flake-parts.url = "github:hercules-ci/flake-parts";
+  inputs.nixos-artifacts.url = "github:mrVanDalo/nixos-artifacts"; <1>
+  inputs.nixos-artifacts-agenix.url = "github:mrVanDalo/nixos-artifacts-agenix"; <2>
+
+  outputs = inputs@{ self, nixpkgs, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" "aarch64-linux" ];
+      perSystem = { system, ... }: {
+        packages.artifacts-cli = inputs.nixos-artifacts.packages.${system}.default.override { <3>
+          backends.agenix = { <4>
+            inherit (inputs.nixos-artifacts-agenix.packages.${system})
+              check_serialization serialize deserialize;
+          };
+        };
+      };
+    };
+}
+----
+<1> Core artifacts framework
+<2> Agenix backend for artifacts
+<3> override the nixos-artifacts package
+<4> define the agenix backend
+
+[source,shell]
+----
+# Build
+nix build .#artifacts-cli
+
+# Or run directly
+nix run .#artifacts-cli
+----
+
+=== Without flake-parts (plain flakes)
+
+If you do not use flake-parts, the idea is the same: produce a package by
+calling `override and
+pass the agenix backend functions from this repo.
+
+[source,nix]
+----
+{
+  description = "My artifacts-cli with agenix";
+
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixos-artifacts.url = "github:mrVanDalo/nixos-artifacts"; <1>
+  inputs.nixos-artifacts-agenix.url = "github:mrVanDalo/nixos-artifacts-agenix"; <2>
+
+  outputs = inputs@{ self, nixpkgs, ... }: let
+    system = "x86_64-linux";
+  in {
+    packages.${system}.default = inputs.nixos-artifacts.packages.${system}.default.override { <3>
+      backends.agenix = { <4>
+        inherit (inputs.nixos-artifacts-agenix.packages.${system})
+          check_serialization serialize deserialize;
+      };
+    };
+  };
+}
+----
+<1> Core artifacts framework
+<2> Agenix backend for artifacts
+<3> override the nixos-artifacts package
+<4> define the agenix backend
+
+Build or run the default package:
+
+[source,shell]
+----
+nix build .
+./result/bin/artifacts-cli --help
+----
+

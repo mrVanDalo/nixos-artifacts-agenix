@@ -1,1 +1,4 @@
 * xref:index.adoc[Home]
+* xref:how-to-use-agenix-backend.adoc[How to use nixos-artifacts-agenix]
+* xref:how-to-configure-artifacts-cli.adoc[artifacts-cli configuration]
+* xref:directory_layout.adoc[Directory Layout]

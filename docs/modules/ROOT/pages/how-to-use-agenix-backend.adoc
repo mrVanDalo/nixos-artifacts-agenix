@@ -1,0 +1,51 @@
+= How to use the Agenix backend
+
+Add the inputs and use flake-parts to structure your flake. Then import the
+provided NixOS module(s) into your nixosConfigurations.
+
+[source,nix]
+----
+{
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.flake-parts.url = "github:hercules-ci/flake-parts";
+  inputs.nixos-artifacts.url = "github:mrVanDalo/nixos-artifacts"; <1>
+  inputs.nixos-artifacts-agenix.url = "github:mrVanDalo/nixos-artifacts-agenix"; <2>
+
+  outputs = inputs@{ self, nixpkgs, ... }: {
+    nixosConfigurations.my-host = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        inputs.nixos-artifacts.nixosModules.default <3>
+        inputs.nixos-artifacts-agenix.nixosModules.default <4>
+        # Your host configuration:
+        ({ config, pkgs, ... }: {
+          networking.hostName = "my-host";
+          artifacts.default.backend.serialization = "agenix"; <5>
+
+          # Configure the agenix backend
+          artifacts.config.agenix = {
+            flakeStoreDir = ./secrets;  <6>
+            storeDir = "$HOME/artifacts"; <7>
+            publicHostKey = "ssh-ed25519 AAAA...host..."; <8>
+            publicUserKeys = [ <9>
+              "ssh-ed25519 AAAA...user1..."
+              "ssh-ed25519 AAAA...user2..."
+            ];
+          };
+        })
+      ];
+    };
+  };
+}
+----
+<1> Core artifacts framework
+<2> Agenix backend for artifacts
+<3> Core artifacts options.
+<4> Agenix backend options, contains `agenix.nixosModules.default`.
+<5> use agenix as default backend
+<6> Path inside your repo or a flake input (eg. `"${inputs.secret}/secrets}"`) where encrypted secrets are stored and read by the NixOS module at runtime (used to populate age.secrets)
+<7> Where the serializer writes encrypted files (defaults to `"secrets"`)
+<8> Public keys used to encrypt the secrets for this host
+<9> Additional public keys able to decrypt the secrets
+
+
