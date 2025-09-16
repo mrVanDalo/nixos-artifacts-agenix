@@ -6,13 +6,20 @@ with types;
   options.artifacts.config.agenix = {
     storeDir = mkOption {
       type = str;
-      description = "Path to the secrets store for agenix backend";
+      description = ''
+        Path to the secrets store where agenix backend will serialize secrets to.
+        See xref::directory_layout.adoc[Directory Layout] on how secrets will be serialized.
+      '';
+
       default = "secrets";
       example = "$HOME/nixos-secrets";
     };
     flakeStoreDir = mkOption {
       type = path;
-      description = "Path to the secrets store for agenix backend";
+      description = ''
+        Path reference where encrypted secrets are stored for agenix.
+        This is used to to populate `age.secrets`.
+      '';
       example = lib.literalExpression ''
         {
           flakeStoreDir = inputs.my-secrets;

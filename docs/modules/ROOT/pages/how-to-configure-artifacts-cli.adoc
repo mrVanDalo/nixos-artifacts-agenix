@@ -5,7 +5,7 @@ artifacts-cli package from nixos-artifacts by overriding
 `inputs.nixos-artifacts` `default` package.
 
 TIP: If you want to configure the NixOS module side (secrets, keys, layout), see
-xref:how-to-use-agenix-backend.adoc[How to use the Agenix backend].
+xref:how-to-use-agenix-backend.adoc[how to use the Agenix backend].
 
 == Quick start: use this flake’s default package
 

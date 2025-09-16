@@ -43,9 +43,9 @@ provided NixOS module(s) into your nixosConfigurations.
 <3> Core artifacts options.
 <4> Agenix backend options, contains `agenix.nixosModules.default`.
 <5> use agenix as default backend
-<6> Path inside your repo or a flake input (eg. `"${inputs.secret}/secrets}"`) where encrypted secrets are stored and read by the NixOS module at runtime (used to populate age.secrets)
-<7> Where the serializer writes encrypted files (defaults to `"secrets"`)
-<8> Public keys used to encrypt the secrets for this host
-<9> Additional public keys able to decrypt the secrets
+<6> xref::options.adoc#_flakestoredir_mandatory[Path reference where encrypted secrets are stored]
+<7> xref::options.adoc#_storedir[Where the serializer writes encrypted files]
+<8> xref::options.adoc#_publichostkey_mandatory[Public keys used to encrypt the secrets for this host]
+<9> xref::options.adoc#_publicuserkeys[Additional public keys able to decrypt the secrets]
 
 

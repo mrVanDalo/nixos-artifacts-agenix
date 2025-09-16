@@ -11,6 +11,8 @@
       optionsTemplate = pkgs.writeText "options.mustache" ''
         = Options
 
+        `{{prefix}}` option definitions.
+
         {{#options}}
         == {{name}}{{^hasDefault}} (mandatory) {{/hasDefault}}
         [horizontal]

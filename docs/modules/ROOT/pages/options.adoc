@@ -1,11 +1,15 @@
 = Options
 
+`artifacts.config.agenix` option definitions.
+
 == flakeStoreDir (mandatory) 
 [horizontal]
 Name::
 `artifacts.config.agenix.name`
 Description::
-Path to the secrets store for agenix backend
+Path reference where encrypted secrets are stored for agenix.
+This is used to to populate `age.secrets`.
+
 Type::
 `path`
 [vertical]
@@ -58,7 +62,9 @@ Default::
 Name::
 `artifacts.config.agenix.name`
 Description::
-Path to the secrets store for agenix backend
+Path to the secrets store where agenix backend will serialize secrets to.
+See xref::directory_layout.adoc[Directory Layout] on how secrets will be serialized.
+
 Type::
 `str`
 Default::
