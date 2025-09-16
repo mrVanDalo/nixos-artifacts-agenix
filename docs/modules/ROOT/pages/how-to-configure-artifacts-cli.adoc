@@ -7,7 +7,7 @@ artifacts-cli package from nixos-artifacts by overriding
 TIP: If you want to configure the NixOS module side (secrets, keys, layout), see
 xref:how-to-use-agenix-backend.adoc[How to use the Agenix backend].
 
-== 1) Quick start: use this flake’s default package
+== Quick start: use this flake’s default package
 
 You can install the CLI that already includes the agenix backend by using
 this repository’s default package:
@@ -19,7 +19,7 @@ nix shell github:mrVanDalo/nixos-artifacts-agenix#default
 
 Now you have `artifacts` in your `$PATH`.
 
-== 2) Override the nixos-artifacts CLI in your own flake
+== Override the nixos-artifacts CLI in your own flake
 
 If you already have a flake and want to control exactly how the CLI is produced,
 you can override the default artifacts-cli package from nixos-artifacts and
@@ -63,7 +63,7 @@ nix build .#artifacts-cli
 nix run .#artifacts-cli
 ----
 
-=== Without flake-parts (plain flakes)
+=== Minimal plain flakes (without flake parts)
 
 If you do not use flake-parts, the idea is the same: produce a package by
 calling `override and
@@ -72,8 +72,6 @@ pass the agenix backend functions from this repo.
 [source,nix]
 ----
 {
-  description = "My artifacts-cli with agenix";
-
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.nixos-artifacts.url = "github:mrVanDalo/nixos-artifacts"; <1>
   inputs.nixos-artifacts-agenix.url = "github:mrVanDalo/nixos-artifacts-agenix"; <2>
