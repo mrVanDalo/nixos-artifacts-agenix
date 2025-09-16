@@ -22,6 +22,7 @@
       imports = [
         ./nix/formatter.nix
         ./nix/devshells.nix
+        ./nix/options.nix
       ];
       systems = [
         "x86_64-linux"
@@ -43,7 +44,9 @@
         {
 
           # provide all packages
-          packages = { inherit (backends) check_serialization serialize deserialize; };
+          packages = {
+            inherit (backends) check_serialization serialize deserialize;
+          };
 
           packages.default = inputs.nixos-artifacts.packages.${system}.default.override {
             backends.agenix = { inherit (backends) check_serialization serialize deserialize; };

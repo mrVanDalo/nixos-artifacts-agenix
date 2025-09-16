@@ -2,3 +2,4 @@
 * xref:how-to-use-agenix-backend.adoc[Integrate Backend in Your Flake]
 * xref:how-to-configure-artifacts-cli.adoc[Configure artifacts command]
 * xref:directory_layout.adoc[Directory Layout]
+* xref:options.adoc[Options]

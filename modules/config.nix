@@ -8,6 +8,7 @@ with types;
       type = str;
       description = "Path to the secrets store for agenix backend";
       default = "secrets";
+      example = "$HOME/nixos-secrets";
     };
     flakeStoreDir = mkOption {
       type = path;
@@ -23,6 +24,7 @@ with types;
       type = str;
       description = "name of this machine";
       default = config.networking.hostName; # fixme not a good default
+      defaultText = "config.networking.hostName";
     };
     publicHostKey = mkOption {
       type = str;

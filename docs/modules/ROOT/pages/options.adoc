@@ -1,0 +1,73 @@
+= Options
+
+== flakeStoreDir (mandatory) 
+[horizontal]
+Name::
+`artifacts.config.agenix.name`
+Description::
+Path to the secrets store for agenix backend
+Type::
+`path`
+[vertical]
+Example::
++
+[source,nix]
+----
+{
+  flakeStoreDir = inputs.my-secrets;
+  flakeStoreDir = ./secrets;
+};
+
+----
+
+== machineName
+[horizontal]
+Name::
+`artifacts.config.agenix.name`
+Description::
+name of this machine
+Type::
+`str`
+Default::
+`config.networking.hostName`
+
+== publicHostKey (mandatory) 
+[horizontal]
+Name::
+`artifacts.config.agenix.name`
+Description::
+public key used to encrypt secrets for this host
+can be found via `ssh-keyscan &lt;host&gt;`
+
+Type::
+`str`
+
+== publicUserKeys
+[horizontal]
+Name::
+`artifacts.config.agenix.name`
+Description::
+public key used to encrypt secrets for this host
+Type::
+`listOf`
+Default::
+`[]`
+
+== storeDir
+[horizontal]
+Name::
+`artifacts.config.agenix.name`
+Description::
+Path to the secrets store for agenix backend
+Type::
+`str`
+Default::
+`secrets`
+[vertical]
+Example::
++
+[source,nix]
+----
+$HOME/nixos-secrets
+----
+
