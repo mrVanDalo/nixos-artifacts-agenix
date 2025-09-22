@@ -8,7 +8,6 @@ with types;
       type = str;
       description = ''
         Path to the secrets store where agenix backend will serialize secrets to.
-        See xref::directory_layout.adoc[Directory Layout] on how secrets will be serialized.
       '';
 
       default = "secrets";

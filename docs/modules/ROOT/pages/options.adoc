@@ -1,21 +1,15 @@
-= Options
+== artifacts{zwsp}.config{zwsp}.agenix{zwsp}.flakeStoreDir
 
-`artifacts.config.agenix` option definitions.
+Path reference where encrypted secrets are stored for agenix{zwsp}. This is used to to populate ``age{zwsp}.secrets``{zwsp}.
 
-== flakeStoreDir (mandatory) 
-[horizontal]
-Name::
-`artifacts.config.agenix.name`
-Description::
-Path reference where encrypted secrets are stored for agenix.
-This is used to to populate `age.secrets`.
 
-Type::
-`path`
-[vertical]
-Example::
-+
-[source,nix]
+
+__Type:__ absolute path
+
+
+
+__Example:__
+
 ----
 {
   flakeStoreDir = inputs.my-secrets;
@@ -24,56 +18,68 @@ Example::
 
 ----
 
-== machineName
-[horizontal]
-Name::
-`artifacts.config.agenix.name`
-Description::
+
+
+== artifacts{zwsp}.config{zwsp}.agenix{zwsp}.machineName
+
+
+
 name of this machine
-Type::
-`str`
-Default::
-`config.networking.hostName`
 
-== publicHostKey (mandatory) 
-[horizontal]
-Name::
-`artifacts.config.agenix.name`
-Description::
+
+
+__Type:__ string
+
+
+
+__Default:__ ``{quot}config{zwsp}.networking{zwsp}.hostName{quot}``
+
+
+
+== artifacts{zwsp}.config{zwsp}.agenix{zwsp}.publicHostKey
+
+
+
+public key used to encrypt secrets for this host can be found via ``ssh-keyscan {zwsp}+<+{zwsp}host{gt}``
+
+
+
+__Type:__ string
+
+
+
+== artifacts{zwsp}.config{zwsp}.agenix{zwsp}.publicUserKeys
+
+
+
 public key used to encrypt secrets for this host
-can be found via `ssh-keyscan &lt;host&gt;`
 
-Type::
-`str`
 
-== publicUserKeys
-[horizontal]
-Name::
-`artifacts.config.agenix.name`
-Description::
-public key used to encrypt secrets for this host
-Type::
-`listOf`
-Default::
-`[]`
 
-== storeDir
-[horizontal]
-Name::
-`artifacts.config.agenix.name`
-Description::
-Path to the secrets store where agenix backend will serialize secrets to.
-See xref::directory_layout.adoc[Directory Layout] on how secrets will be serialized.
+__Type:__ list of string
 
-Type::
-`str`
-Default::
-`secrets`
-[vertical]
-Example::
-+
-[source,nix]
-----
-$HOME/nixos-secrets
-----
+
+
+__Default:__ ``{startsb} {endsb}``
+
+
+
+== artifacts{zwsp}.config{zwsp}.agenix{zwsp}.storeDir
+
+
+
+Path to the secrets store where agenix backend will serialize secrets to{zwsp}.
+
+
+
+__Type:__ string
+
+
+
+__Default:__ ``{quot}secrets{quot}``
+
+
+
+__Example:__ ``{quot}$HOME/nixos-secrets{quot}``
+
 
