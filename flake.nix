@@ -9,7 +9,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     nixos-artifacts.inputs.nixpkgs.follows = "nixpkgs"; # only private input
-    nixos-artifacts.url = "github:mrVanDalo/nixos-artifacts/home-manager";
+    nixos-artifacts.url = "github:mrVanDalo/nixos-artifacts";
     nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
     nixos-generators.url = "github:nix-community/nixos-generators";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
