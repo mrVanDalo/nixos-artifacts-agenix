@@ -116,13 +116,14 @@
             inputs.nixos-artifacts.homeModules.examples
             self.homeModules.default
             (
-              { pkgs, ... }:
+              { config, pkgs, ... }:
               {
                 home.stateVersion = "25.05";
                 home.username = "some-test-name";
                 home.homeDirectory = "/home/test";
                 artifacts.default.backend.serialization = "agenix";
                 artifacts.config.agenix.username = "my-user";
+                artifacts.config.agenix.identityPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
                 artifacts.config.agenix.storeDir = "./secrets";
                 artifacts.config.agenix.flakeStoreDir = ./secrets;
                 artifacts.config.agenix.publicUserKeys = [

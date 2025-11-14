@@ -266,16 +266,15 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1762986266,
-        "narHash": "sha256-w3kwqHL+bhFB3rKl68Pad6pb9RbgiFd0qaFgj/HzvwY=",
+        "lastModified": 1763160735,
+        "narHash": "sha256-f9jz+eBxMuxbvyyVR48QbisgcmT1ufzEQUhfhHDqFEU=",
         "owner": "mrVanDalo",
         "repo": "nixos-artifacts",
-        "rev": "c44096c07c80e5a467c76ed0781f1734d182a3ed",
+        "rev": "6a7a609d75339fa454996f1a57b5996788b841b4",
         "type": "github"
       },
       "original": {
         "owner": "mrVanDalo",
-        "ref": "home-manager",
         "repo": "nixos-artifacts",
         "type": "github"
       }
