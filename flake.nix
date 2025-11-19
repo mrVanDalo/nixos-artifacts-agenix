@@ -10,8 +10,6 @@
     home-manager.url = "github:nix-community/home-manager";
     nixos-artifacts.inputs.nixpkgs.follows = "nixpkgs"; # only private input
     nixos-artifacts.url = "github:mrVanDalo/nixos-artifacts";
-    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-generators.url = "github:nix-community/nixos-generators";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.url = "github:numtide/treefmt-nix";
@@ -47,16 +45,6 @@
           };
           packages.default = inputs.nixos-artifacts.packages.${system}.default.override {
             backends.agenix = { inherit (backends) check_serialization serialize deserialize; };
-          };
-
-          # just for testing
-          packages.vmware = inputs.nixos-generators.nixosGenerate {
-            system = "x86_64-linux";
-            format = "vm-nogui";
-            modules = [
-              # todo : configure nixos
-              # todo : configure home manager
-            ];
           };
 
         };
