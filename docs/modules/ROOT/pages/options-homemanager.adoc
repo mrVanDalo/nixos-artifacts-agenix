@@ -1,6 +1,6 @@
-== artifacts.config.agenix.flakeStoreDir
+== artifacts{zwsp}.config{zwsp}.agenix{zwsp}.flakeStoreDir
 
-Path reference where encrypted secrets are stored for agenix. This is used to to populate ``age.secrets``.
+Path reference where encrypted secrets are stored for agenix{zwsp}. This is used to to populate ``age{zwsp}.secrets``{zwsp}.
 
 
 
@@ -20,7 +20,7 @@ __Example:__
 
 
 
-== artifacts.config.agenix.identityPaths
+== artifacts{zwsp}.config{zwsp}.agenix{zwsp}.identityPaths
 
 
 
@@ -42,7 +42,7 @@ __Example:__
 
 
 
-== artifacts.config.agenix.publicUserKeys
+== artifacts{zwsp}.config{zwsp}.agenix{zwsp}.publicUserKeys
 
 
 
@@ -58,11 +58,11 @@ __Default:__ ``{startsb} {endsb}``
 
 
 
-== artifacts.config.agenix.storeDir
+== artifacts{zwsp}.config{zwsp}.agenix{zwsp}.storeDir
 
 
 
-Path to the secrets store where agenix backend will serialize secrets to.
+Path to the secrets store where agenix backend will serialize secrets to{zwsp}.
 
 
 
@@ -78,11 +78,11 @@ __Example:__ ``{quot}$HOME/nixos-secrets{quot}``
 
 
 
-== artifacts.config.agenix.username
+== artifacts{zwsp}.config{zwsp}.agenix{zwsp}.username
 
 
 
-name of this homeConfiguration.
+name of this homeConfiguration{zwsp}.
 
 
 
@@ -90,6 +90,6 @@ __Type:__ string
 
 
 
-__Default:__ ``{quot}config.networking.hostName{quot}``
+__Default:__ ``{quot}config{zwsp}.networking{zwsp}.hostName{quot}``
 
 
