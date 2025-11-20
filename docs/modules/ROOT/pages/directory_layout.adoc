@@ -1,4 +1,48 @@
 = Directory Layout
 
-Directory layout used by `nixos-artifacts-agenix` is as follows
-`<storeDir/flakeStoreDir>/per-machine/<machineName>/<artifactName>/<fileName>.age`
+The `nixos-artifacts-agenix` backend stores encrypted secrets in a structured directory hierarchy that separates machine-level secrets (NixOS) from user-level secrets (Home Manager).
+
+== Overview
+
+The storage structure follows this pattern:
+
+[source]
+----
+secrets/
+├── per-machine/
+│   └── <machineName>/
+│       └── <artifactName>/
+│           └── <fileName>.age
+└── per-user/
+    └── <username>/
+        └── <artifactName>/
+            └── <fileName>.age
+----
+
+== Path Components
+
+=== Store Directory
+
+The root directory for all encrypted secrets,
+configured via xref:options.adoc#_artifactszwsp_configzwsp_agenixzwsp_storedir[storeDir]
+and xref:options.adoc#_artifactszwsp_configzwsp_agenixzwsp_flakestoredir[flakeStoreDir].
+
+=== Context Directories
+
+==== `per-machine/`
+
+Contains secrets for NixOS system configurations. Each machine has its own subdirectory identified by the hostname.
+
+* Used when: Deploying NixOS system configurations
+* Encryption keys: xref:options.adoc#_artifactszwsp_configzwsp_agenixzwsp_publichostkey[publicHostKey]
+  + optional xref:options.adoc#_artifactszwsp_configzwsp_agenixzwsp_publicuserkeys[publicUserKeys]
+* Runtime decryption: Automatic using host SSH keys
+
+==== `per-user/`
+
+Contains secrets for Home Manager user configurations. Each user has their own subdirectory.
+
+* Used when: Deploying Home Manager user configurations
+* Encryption keys: `publicUserKeys` only
+* Runtime decryption: Requires `identityPaths` configuration
+
