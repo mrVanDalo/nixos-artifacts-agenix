@@ -24,8 +24,8 @@ secrets/
 === Store Directory
 
 The root directory for all encrypted secrets,
-configured via xref:options.adoc#_artifactszwsp_configzwsp_agenixzwsp_storedir[storeDir]
-and xref:options.adoc#_artifactszwsp_configzwsp_agenixzwsp_flakestoredir[flakeStoreDir].
+configured via xref:options-nixos.adoc#_artifacts_config_agenix_storedir[storeDir]
+and xref:options-nixos.adoc#_artifacts_config_agenix_flakestoredir[flakeStoreDir].
 
 === Context Directories
 
@@ -34,8 +34,8 @@ and xref:options.adoc#_artifactszwsp_configzwsp_agenixzwsp_flakestoredir[flakeSt
 Contains secrets for NixOS system configurations. Each machine has its own subdirectory identified by the hostname.
 
 * Used when: Deploying NixOS system configurations
-* Encryption keys: xref:options.adoc#_artifactszwsp_configzwsp_agenixzwsp_publichostkey[publicHostKey]
-  + optional xref:options.adoc#_artifactszwsp_configzwsp_agenixzwsp_publicuserkeys[publicUserKeys]
+* Encryption keys: xref:options-nixos.adoc#_artifacts_config_agenix_publichostkey[publicHostKey]
+  + optional xref:options-nixos.adoc#_artifacts_config_agenix_publicuserkeys[publicUserKeys]
 * Runtime decryption: Automatic using host SSH keys
 
 ==== `per-user/`
@@ -43,6 +43,6 @@ Contains secrets for NixOS system configurations. Each machine has its own subdi
 Contains secrets for Home Manager user configurations. Each user has their own subdirectory.
 
 * Used when: Deploying Home Manager user configurations
-* Encryption keys: `publicUserKeys` only
-* Runtime decryption: Requires `identityPaths` configuration
+* Encryption keys: xref::options-homemanager.adoc#_artifacts_config_agenix_publicuserkeys[publicUserKeys] only
+* Runtime decryption: Requires xref::options-homemanager.adoc#_artifacts_config_agenix_identitypaths[identityPaths] configuration
 

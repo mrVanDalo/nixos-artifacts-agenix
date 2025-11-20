@@ -43,9 +43,9 @@ provided NixOS module(s) into your nixosConfigurations.
 <3> Core artifacts options.
 <4> Agenix backend options, contains `agenix.nixosModules.default`.
 <5> use agenix as default backend
-<6> xref::options.adoc#_flakestoredir_mandatory[Path reference where encrypted secrets are stored]
-<7> xref::options.adoc#_storedir[Where the serializer writes encrypted files]
-<8> xref::options.adoc#_publichostkey_mandatory[Public keys used to encrypt the secrets for this host]
-<9> xref::options.adoc#_publicuserkeys[Additional public keys able to decrypt the secrets]
+<6> xref::options-nixos.adoc#_artifacts_config_agenix_flakestoredir[Path reference where encrypted secrets are stored]
+<7> xref::options-nixos.adoc#_artifacts_config_agenix_storedir[Where the serializer writes encrypted files]
+<8> xref::options-nixos.adoc#_artifacts_config_agenix_publichostkey[Public keys used to encrypt the secrets for this host]
+<9> xref::options-nixos.adoc#_artifacts_config_agenix_publicuserkeys[Additional public keys able to decrypt the secrets]
 
 

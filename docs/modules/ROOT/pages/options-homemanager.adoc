@@ -1,0 +1,95 @@
+== artifacts.config.agenix.flakeStoreDir
+
+Path reference where encrypted secrets are stored for agenix. This is used to to populate ``age.secrets``.
+
+
+
+__Type:__ absolute path
+
+
+
+__Example:__
+
+----
+{
+  flakeStoreDir = inputs.my-secrets;
+  flakeStoreDir = ./secrets;
+};
+
+----
+
+
+
+== artifacts.config.agenix.identityPaths
+
+
+
+path to the identities to decrypt the secrets at runtime
+
+
+
+__Type:__ list of string
+
+
+
+__Example:__
+
+----
+[
+  "~/.ssh/id_ed25519"
+]
+----
+
+
+
+== artifacts.config.agenix.publicUserKeys
+
+
+
+public key used to encrypt secrets for this host
+
+
+
+__Type:__ list of string
+
+
+
+__Default:__ ``{startsb} {endsb}``
+
+
+
+== artifacts.config.agenix.storeDir
+
+
+
+Path to the secrets store where agenix backend will serialize secrets to.
+
+
+
+__Type:__ string
+
+
+
+__Default:__ ``{quot}secrets{quot}``
+
+
+
+__Example:__ ``{quot}$HOME/nixos-secrets{quot}``
+
+
+
+== artifacts.config.agenix.username
+
+
+
+name of this homeConfiguration.
+
+
+
+__Type:__ string
+
+
+
+__Default:__ ``{quot}config.networking.hostName{quot}``
+
+
