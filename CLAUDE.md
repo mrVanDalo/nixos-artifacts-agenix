@@ -262,12 +262,15 @@ The `nav.adoc` file defines the documentation menu:
 
 ### Generating Options Documentation
 
-The `options.adoc` file is automatically generated from the NixOS module definitions using a multi-step process defined in `nix/options.nix`:
+The `options.adoc` file is automatically generated from the NixOS module
+definitions using a multi-step process defined in `nix/options.nix`:
 
-1. **Evaluate modules**: Uses NixOS's `eval-config.nix` to evaluate `modules/config.nix`
+1. **Evaluate modules**: Uses NixOS's `eval-config.nix` to evaluate
+   `modules/config.nix`
 2. **Extract to JSON**: Generates option metadata using `nixosOptionsDoc`
 3. **Clean JSON**: Removes internal `.declarations` fields with `gojq`
-4. **Convert to AsciiDoc**: Uses `nixos-render-docs` to create formatted documentation
+4. **Convert to AsciiDoc**: Uses `nixos-render-docs` to create formatted
+   documentation
 5. **Write file**: Outputs to `docs/modules/ROOT/pages/options.adoc`
 
 To regenerate the options documentation:
@@ -276,7 +279,8 @@ To regenerate the options documentation:
 nix run .#build-docs-options
 ```
 
-This ensures the documentation stays synchronized with the actual module option definitions in `modules/config.nix`.
+This ensures the documentation stays synchronized with the actual module option
+definitions in `modules/config.nix`.
 
 ### Building Documentation
 
@@ -290,6 +294,42 @@ content:
     - url: https://github.com/mrVanDalo/nixos-artifacts-agenix
       start_path: docs
 ```
+
+### Testing Documentation Locally
+
+For local documentation development and testing, use the following commands:
+
+**Build documentation once:**
+
+```bash
+nix run .#build-docs
+```
+
+This builds the Antora site to `build/site/`.
+
+**Build and serve documentation:**
+
+```bash
+nix run .#serve-docs
+```
+
+This builds the site and starts a local HTTP server at `http://localhost:8000`.
+Press Ctrl+C to stop.
+
+**Watch for changes:**
+
+```bash
+nix run .#watch-docs
+```
+
+This watches the `docs/` folder for changes to `.adoc`, `.yml`, and `.yaml`
+files, automatically rebuilding the documentation when changes are detected.
+Press Ctrl+C to stop.
+
+**Note:** The `docs/antora-playbook.yml` file is only used for local
+documentation testing and preview. Production documentation sites should
+reference this repository as a content source in their own playbook
+configuration.
 
 ## License
 

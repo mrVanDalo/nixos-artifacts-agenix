@@ -22,6 +22,7 @@
         ./nix/formatter.nix
         ./nix/devshells.nix
         ./nix/options.nix
+        ./nix/docs.nix
       ];
       systems = [
         "x86_64-linux"

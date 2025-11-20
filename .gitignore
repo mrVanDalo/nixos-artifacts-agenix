@@ -1,3 +1,9 @@
 !.envrc
 # we don't check in secrets in this module
 secrets
+
+# Antora documentation build output
+build/
+docs/node_modules/
+docs/package-lock.json
+.cache
